@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}" />
+</head>
+<body>
+    <h1>Car Park System</h1>
+    Enter new car details
+    <form id="frmadd" action="/add" method="post">
+        <label for="txtreg">Registration</label> <input id="txtreg" name="reg" /><br />
+        <label for="cbxtype">Vehicle Type:</label>
+        <select id="cbxtype" name="type">
+            <option value="Car">Car</option>
+            <option value="Motorbike">Motorbike</option>
+            <option value="Lorry">Lorry</option>
+            <option value="Emergency">Emergency Vehicle</option>
+        </select>
+        <button id="btnadd">Add Vehicle</button>
+    </form>
+    <div id="result"></div>
+    <p>Spaces left: <span id="spacecount">{{ spaces }}</span> / <span id="capacity">{{ capacity }}</span></p>
+
+    <div id="carlist">
+        {% if not cars %}
+            <p>The car park is empty</p>
+        {% else %}
+            <p>Current vehicles in car park</p>
+        {% endif %}
+        <ul id="spaces">
+            {% for car in cars %}
+                <li>{{ car.reg }} </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <form id="frmremove" action="/remove" method="post">
+        <label for="txtregrm">Enter a registration to remove:</label> <input id="txtregrm" name="reg" />
+        <button id="btnremove">Remove</button>
+    </form>
+    <script src="{{ url_for('static', filename='scripts/ajax.js') }}"></script>
+</body>
+</html>
